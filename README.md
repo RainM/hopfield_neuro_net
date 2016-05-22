@@ -1,4 +1,4 @@
-# hopfield_neuro_net
+# Hopfield neuro network
 
 ## Description
 
@@ -27,7 +27,7 @@ $ mkdir build ; cd build
 $ cmake ..
 $ make
 
-### Visual Studio
+### Windows (Visual Studio)
 
 1. Download and install CMAKE
 2. Open console at repository folder
