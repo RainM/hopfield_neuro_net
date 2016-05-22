@@ -24,7 +24,9 @@ This project is based on CMAKE build system. So, just execute:
 ### Ubuntu
 
 $ mkdir build ; cd build
+
 $ cmake ..
+
 $ make
 
 ### Windows (Visual Studio)
