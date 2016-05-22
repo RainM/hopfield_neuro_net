@@ -1,4 +1,4 @@
-﻿#include "stdafx.h"
+#include "stdafx.h"
 
 using std::begin;
 using std::end;
@@ -18,7 +18,7 @@ struct simple_neuron {
     static state read(char c) {
 	return (c == '*' ? UPPER_STATE : LOWER_STATE);
     }
-    
+
     static char write(state s) {
 	if (s == LOWER_STATE) {
 	    return ' ';
@@ -81,8 +81,8 @@ struct neuro_net_system {
 	return value_changed;
     }
 
-    neurons_line& operator () (neurons_line& line) {
-	bool need_continue = true;
+    size_t _do(neurons_line& line) {
+        bool need_continue = true;
 	_steps_done = 0;
 
 	while (need_continue) {
@@ -90,7 +90,7 @@ struct neuro_net_system {
 	    ++_steps_done;
 	}
 
-	return line;
+	return _steps_done;
     }
 
     size_t steps_done() const {
@@ -113,9 +113,9 @@ link_coeffs learn_neuro_net(const list<neurons_line> &src_images) {
 	for (size_t j = 0; j < i; ++j) {
 	    neuron_t::coeff_t val = 0;
 	    val = std::accumulate(
-		begin(src_images), 
-		end(src_images), 
-		neuron_t::coeff_t(0.0), 
+		begin(src_images),
+		end(src_images),
+		neuron_t::coeff_t(0.0),
 		[i, j] (neuron_t::coeff_t old_val, const neurons_line &image) -> neuron_t::coeff_t{
 		    return old_val + (image[i] * image[j]);
 		});
@@ -152,7 +152,7 @@ operator << (std::basic_ostream<Ch, Tr>&stm, const neurons_line_print_descriptor
 	    stm << neuron_t::write(*it);
 	    ++it;
 	}
-	cout << endl;
+	stm << endl;
     }
 
     return stm;
@@ -180,7 +180,7 @@ int main(int argc, char* argv[])
     list<neurons_line> src_images;
     std::string target_file_path;
     size_t width, height;
-	
+
     if (argc < 4) {
 	cout << "Invalid parameters." << endl;
 	cout << "Usage: AppName WIDTH HEIGHT SOURCE_FILE LEARNING_FILE_1 [LEARNE_FILE_N]" << endl;
@@ -211,7 +211,8 @@ int main(int argc, char* argv[])
     cout << neurons_line_print_descriptor(line, width, height) << endl;
     cout << "---------------------------" << endl;
 
-    net(line);
+    auto steps_done = net._do(line);
+    cout << "Steps done: " << steps_done << endl;
     cout << neurons_line_print_descriptor(line, width, height) << endl;
     cout << "---------------------------" << endl;
 
