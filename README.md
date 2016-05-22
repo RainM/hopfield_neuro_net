@@ -19,7 +19,7 @@ $ ./hopfield 10 10 ../noisy_example/src.txt ../images_to_learn/*.txt
 
 ## How to build
 
-This project is based on CMAKE build system. So, just execute:
+This project is based on CMAKE build system (cmake version 3+). So, just execute:
 
 ### Ubuntu
 
