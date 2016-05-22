@@ -27,18 +27,16 @@ struct simple_neuron {
 	}
     }
 
-    static state truncate(coeff_t value) {
-	return value > 0 ? UPPER_STATE : LOWER_STATE;
-    }
-
     template <typename _Iv, typename _Ic>
-    static coeff_t calculate(_Iv val_b, _Iv val_e, _Ic coeff_b) {
-	return std::inner_product(
+    static state_t calculate(_Iv val_b, _Iv val_e, _Ic coeff_b) {
+	auto value = std::inner_product(
 		    val_b,
 		    val_e,
 		    coeff_b,
 		    coeff_t(0)
 		    );
+
+	return value > 0 ? UPPER_STATE : LOWER_STATE;
     }
 };
 
@@ -64,14 +62,11 @@ struct neuro_net_system {
 	    end(line), 
 	    begin(line), 
 	    [&old_values, &it_coeffs, &value_changed] (state_t old_value) -> state_t {
-
-		auto initial_value = neuron_t::calculate(
+		auto new_value = neuron_t::calculate(
 		    begin(old_values),
 		    end(old_values),
 		    begin(*it_coeffs++)
 		    );
-
-		auto new_value = neuron_t::truncate(initial_value);
 
 		value_changed = (new_value != old_value) || value_changed;
 
