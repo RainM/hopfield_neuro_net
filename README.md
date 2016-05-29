@@ -39,5 +39,4 @@ $ make
 
 ## Links:
 
-1. https://software.intel.com/ru-ru/blogs/2011/12/22/finereader-2
-2. Г.Г. Малинецкий. Математические основы синергетики. Москва, URSS, 2009 [In Russian]
+1. Г.Г. Малинецкий. Математические основы синергетики. Москва, URSS, 2009 [In Russian]
